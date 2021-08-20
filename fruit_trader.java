@@ -17,12 +17,16 @@ public class fruit_trader {
 
     public static void main(String args[]) {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        System.out.println("Enter \"VIEWCART\" to view your current fruit-items");
         fruit_cart = new HashMap<>();
         while (true) {
             try {
                 String input = br.readLine();
                 if (input.equals("PROFIT"))
                     System.out.println(totalProfit);
+
+                else if (input.equals("VIEWCART"))
+                    viewCart(fruit_cart);
 
                 else {
                     String[] inputArr = input.trim().split(" ");
@@ -47,6 +51,18 @@ public class fruit_trader {
             } catch (Exception e) {
                 System.out.println(e);
                 break;
+            }
+        }
+    }
+
+    private static void viewCart(HashMap<String, Deque<Stock>> fruit_cart) {
+        for (String ele : fruit_cart.keySet()) {
+            System.out.print(ele + " ");
+            Deque<Stock> d = fruit_cart.get(ele);
+            Iterator<Stock> iteratorVals = d.iterator();
+            while (iteratorVals.hasNext()) {
+                Stock f = iteratorVals.next();
+                System.out.println(f.priceRate + " " + f.quantity);
             }
         }
     }
